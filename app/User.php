@@ -26,4 +26,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany('App\Article');
+    }
+
+    public function badges()
+    {
+        return $this->belongsToMany('App\Badge');
+    }
+
+    /**
+     * Get all of the user's score.
+     */
+    public function scores()
+    {
+        return $this->morphMany('App\Score', 'scorable');
+    }
 }
