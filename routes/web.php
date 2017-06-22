@@ -15,8 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/register', 'RegisterController@index');
+Route::post('/register', 'RegisterController@register');
+Route::get('/login', 'LoginController@index');
+Route::post('/login', 'LoginController@login');
+Route::post('/logout', 'LoginController@logout');
+
+Route::get('/user/me/setting', 'UserController@setting');
+Route::post('/user/me/setting', 'UserController@settingStore');
+
+Route::post('/comment/store', 'ArticleController@comment');
+Route::get('/comment/{id}/vote', 'CommentController@vote');
+Route::get('/comment/{id}/unvote', 'CommentController@unvote');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('article', 'ArticleController');
+Route::post('article/summerImageUpload', 'ArticleController@summerImageUpload');

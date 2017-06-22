@@ -4136,7 +4136,9 @@
           if (typeof param === 'string') {
             $image.attr('data-filename', param);
           }
-          $image.css('width', Math.min($editable.width(), $image.width()));
+          // $image.css('width', Math.min($editable.width(), $image.width()));
+          $image.css('width', '80%');
+          $image.css('height', 'auto');
         }
 
         $image.show();

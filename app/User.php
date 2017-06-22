@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->morphMany('App\Score', 'scorable');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

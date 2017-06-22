@@ -9,7 +9,18 @@
     {{--$table->json('location')->comment('文章发表位置');--}}
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
                 <form id="articleForm" role="form" method="post" action="{{ url('/article') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -17,10 +28,10 @@
                         <input type="text" class="form-control" placeholder="文章标题" id="title" name="title">
 
                         <label for="image">Image:</label>
-                        <input type="file" id="image" name="image">
+                        <input type="file">
 
                         <label for="content">Content:</label>
-                        <div id="summernote">Hello Summernote</div>
+                        <div id="summernote">Hello aroundu</div>
                         <input type="hidden" id="content" name="content">
 
                         <label for="location">Location:</label>
@@ -32,6 +43,8 @@
                         <label for="type">Type:</label>
                         <input type="radio" name="type" value="1" checked> 长文
                         <input type="radio" name="type" value="2"> 短文
+
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5">
@@ -59,9 +72,33 @@
     <script>
         $(document).ready(function() {
             $('#summernote').summernote({
-                height: 300
+                height: 300,
+                callbacks: {
+                    onImageUpload: function(files, editor, $editable) {
+                        sendFile(files[0], editor, $editable);
+                    }
+                }
             });
+            function sendFile(file, editor, $editable) {
+                data = new FormData();
+                data.append("file", file);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: data,
+                    type: "POST",
+                    url: "/article/summerImageUpload",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        $('#summernote').summernote("insertImage", url);
+                    }
+                });
+            }
         });
+
         function submitAll() {
             var markupStr = $('#summernote').summernote('code');
             G('content').value = markupStr;
