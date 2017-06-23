@@ -61,6 +61,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ url('user/'.\Auth::id()) }}">个人主页</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ url('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

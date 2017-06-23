@@ -75,7 +75,7 @@ class ArticleController extends Controller
     public function summerImageUpload(Request $request)
     {
         $path = $request->file('file')->storePublicly(md5(time()));
-        return asset('storage/'.$path);
+        return '/storage/'.$path;
     }
 
     public function articleImageUpload()

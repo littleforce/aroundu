@@ -23,6 +23,9 @@ Route::post('/logout', 'LoginController@logout');
 
 Route::get('/user/me/setting', 'UserController@setting');
 Route::post('/user/me/setting', 'UserController@settingStore');
+Route::get('/user/{id}', 'UserController@show');
+Route::get('/user/{id}/follow', 'UserController@follow');
+Route::get('/user/{id}/unfollow', 'UserController@unfollow');
 
 Route::post('/comment/store', 'ArticleController@comment');
 Route::get('/comment/{id}/vote', 'CommentController@vote');

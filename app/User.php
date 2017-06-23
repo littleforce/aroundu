@@ -49,4 +49,39 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Comment');
     }
+
+    //用户关注
+    public function following()
+    {
+        return $this->belongsToMany(self::class,'follows','follower_id','followed_id')->withTimestamps();
+    }
+
+    //用户的粉丝
+    public function followers()
+    {
+        return $this->belongsToMany(self::class,'follows','followed_id','follower_id')->withTimestamps();
+    }
+
+    //关注用户
+    public function followThisUser($user)
+    {
+        return $this->following()->attach($user);
+    }
+
+    //取消关注用户
+    public function unfollowThisUser($user)
+    {
+        return $this->following()->detach($user);
+    }
+
+    //是否关注了这个用户
+    public function hasFollowed($user)
+    {
+     //dd($this->following()->where('followed_id', $user)->get());
+        if ($this->following()->where('followed_id', $user)->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
