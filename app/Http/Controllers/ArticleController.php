@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Comment;
+use App\Vote;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
@@ -62,14 +63,46 @@ class ArticleController extends Controller
         return back();
     }
 
-    public function vote()
+    public function vote($id)
     {
-
+        $article = Article::find($id);
+        $vote = new Vote();
+        $vote->user_id = \Auth::id();
+        //dd($comment->vote(\Auth::id())->exists());
+        if ($article->vote(\Auth::id())->exists()){
+            $param = [
+                'error' => 1,
+                'msg' => 'already voted!',
+            ];
+        } else {
+            $article->votes()->save($vote);
+            $param = [
+                'error' => 0,
+                'msg' => 'vote success!',
+                'count' => $article->votes->count(),
+            ];
+        }
+        return $param;
     }
 
-    public function unvote()
+    public function unvote($id)
     {
-
+        $article = Article::find($id);
+//        dd($id);
+        if (!$article->vote(\Auth::id())->exists()){
+            $param = [
+                'error' => 1,
+                'msg' => 'unvote failure!',
+            ];
+            return $param;
+        }
+        $article->vote(\Auth::id())->delete();
+        $param = [
+            'error' => 0,
+            'msg' => 'unvote success!',
+            'count' => $article->votes->count(),
+        ];
+        return $param;
     }
 
     public function summerImageUpload(Request $request)

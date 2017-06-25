@@ -40,7 +40,7 @@
                                             {{--<p>{!! $article->content !!} </p>--}}
                                             <p>{{ str_limit($article->content, 150, '...') }}</p>
                                         </div>
-                                        <p class=""><i class="fa fa-comments"></i> {{ $article->comments->count() }} | <i class="fa fa-heart"></i> 1
+                                        <p class=""><i class="fa fa-comments"></i> {{ $article->comments->count() }} | <i class="fa fa-heart"></i> {{ $article->votes->count() }}
                                             @if($user->id == \Auth::id())
                                             <span class=""><a><i class="fa fa-edit"></i> edit</a> | <a><i class="fa fa-trash"></i> delete</a></span>
                                             @endif
@@ -58,6 +58,7 @@
                                             <a class="btn btn-primary" href="{{ url('user/'.$following->id.'/unfollow') }}"><i class="fa fa-plus"></i> 取消关注</a>
                                             @endif
                                         </div>
+                                        <hr>
                                     @endforeach
                                 </div>
                                 <!-- /.tab-pane -->
@@ -74,6 +75,7 @@
                                                 @endif
                                             @endif
                                         </div>
+                                        <hr>
                                     @endforeach
                                 </div>
                                 <!-- /.tab-pane -->

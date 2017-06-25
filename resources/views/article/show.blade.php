@@ -6,11 +6,25 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <h1 class="text-center">{{ $article->title }}</h1>
-                <h5>{{ $article->created_at }} by {{ $article->user->name }}</h5>
+                <h5>{{ $article->created_at }} by <a href="{{ url('user/'.$article->user->id) }}">{{ $article->user->name }}</a></h5>
                 <hr>
                 {!! $article->content !!}
             </div>
             <div class="col-lg-2"></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="text-center">
+                @if(!$article->vote(\Auth::id())->exists())
+                    <a id="like" class="btn btn-danger like-button" article-id="{{ $article->id }}" like-status="0">
+                        <i class="fa fa-heart-o" id="like-icon"></i> | <span id="article-like">喜欢</span> <span id="article-vote-count">{{ $article->votes->count() }}</span>
+                    </a>
+                @else
+                    <a  id="like" class="btn btn-danger like-button" article-id="{{ $article->id }}" like-status="1">
+                        <i class="fa fa-heart" id="like-icon"></i> | <span id="article-like">取消喜欢</span> <span id="article-vote-count">{{ $article->votes->count() }}</span>
+                    </a>
+                @endif
+            </div>
         </div>
         <hr>
         <div class="row">
@@ -72,7 +86,7 @@
                                 <input class="hidden" id="upper_id" name="upper_id">
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-5">
+                                <div class="text-center">
                                     <button class="btn btn-primary" type="button" onclick="form.submit();">submit</button>
                                 </div>
                             </div>
@@ -94,5 +108,48 @@
             document.getElementById('upper_name').innerText = obj.name;
             document.getElementById('upper_id').value = obj.id;
         }
+
+        $(document).ready(function () {
+            $(".like-button").click(function (e) {
+//                var target = $(e.target);
+//                alert(target.attr('article-id'));
+                var article_id = $(this).attr('article-id');
+                var like_status = $(this).attr('like-status');
+                if (like_status == 0) {
+                    $.ajax({
+                        method: "GET",
+                        url: "/article/"+article_id+"/vote",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.error != 0) {
+                                alert(data.msg);
+                                return;
+                            }
+                            document.getElementById('like').setAttribute('like-status', '1');
+                            document.getElementById('like-icon').setAttribute('class', 'fa fa-heart');
+                            document.getElementById('article-vote-count').innerText = data.count;
+                            document.getElementById('article-like').innerText = "取消喜欢";
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        method: "GET",
+                        url: "/article/"+article_id+"/unvote",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.error != 0) {
+                                alert(data.msg);
+                                return;
+                            }
+                            document.getElementById('like').setAttribute('like-status', '0');
+                            document.getElementById('like-icon').setAttribute('class', 'fa fa-heart-o');
+                            document.getElementById('article-vote-count').innerText = data.count;
+                            document.getElementById('article-like').innerText = "喜欢";
+                        }
+                    });
+                }
+
+            });
+        });
     </script>
 @endsection

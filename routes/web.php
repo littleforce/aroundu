@@ -36,3 +36,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('article', 'ArticleController');
 Route::post('article/summerImageUpload', 'ArticleController@summerImageUpload');
+Route::get('/article/{id}/vote', 'ArticleController@vote');
+Route::get('/article/{id}/unvote', 'ArticleController@unvote');
