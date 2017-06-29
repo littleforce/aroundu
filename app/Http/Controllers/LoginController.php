@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller

@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +31,21 @@ class User extends Authenticatable
     public function articles()
     {
         return $this->hasMany('App\Article');
+    }
+
+    public function apiArticles()
+    {
+        if (is_null(request('offset'))) {
+            $offset = 0;
+        } else {
+            $offset = request('offset');
+        }
+        if (is_null(request('number'))) {
+            $number = 10;
+        } else {
+            $number = request('number');
+        }
+        return $this->hasMany('App\Article')->orderBy('created_at', 'desc')->offset($offset)->limit($number);
     }
 
     public function badges()
@@ -83,5 +99,20 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    public function apiGetArticles()
+    {
+        $articles = $this->apiArticles;
+        foreach ($articles as $article) {
+            $array[$article->id]['title'] =$article->title ;
+            $array[$article->id]['created_at'] =$article->created_at->diffForHumans() ;
+            $array[$article->id]['content'] = str_limit(preg_replace("/<[^>]+>/", '', $article->content), 150, '...');
+            $array[$article->id]['user_name'] = $article->user->name;
+            $array[$article->id]['user_id'] = $article->user->id;
+            $array[$article->id]['votes_count'] = $article->votes->count();
+            $array[$article->id]['comments_count'] = $article->comments->count();
+        }
+        return $array;
     }
 }
