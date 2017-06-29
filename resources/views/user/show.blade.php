@@ -38,7 +38,12 @@
                                             <p class=""><a href="{{ url('/user/'.$user->id) }}">{{ $user->name }}</a> at {{ $article->created_at->diffForHumans() }}</p>
                                             <p class=""><a href="{{ url('/article/'.$article->id) }}" >{{ $article->title }}</a></p>
                                             {{--<p>{!! $article->content !!} </p>--}}
-                                            <p>{{ str_limit($article->content, 150, '...') }}</p>
+                                            <p>
+                                                <?php
+                                                $contentes = preg_replace("/<[^>]+>/", '', $article->content);
+                                                echo str_limit($contentes, 150, '...');
+                                                ?>
+                                            </p>
                                         </div>
                                         <p class=""><i class="fa fa-comments"></i> {{ $article->comments->count() }} | <i class="fa fa-heart"></i> {{ $article->votes->count() }}
                                             @if($user->id == \Auth::id())
