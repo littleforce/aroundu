@@ -53,7 +53,7 @@
                         @else
                             <li>
                                 <a href="{{ url('/article/create') }}">
-                                    写文章
+                                    <i class="fa fa-file-text-o"></i> 写文章
                                 </a>
                             </li>
                             <li class="dropdown">
@@ -63,13 +63,20 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ url('user/'.\Auth::id()) }}">个人主页</a>
+                                        <a href="{{ url('user/'.\Auth::id()) }}">
+                                            <i class="fa fa-home"></i> 个人主页
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('user/me/setting') }}">
+                                            <i class="fa fa-cog"></i> 设置
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="{{ url('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <i class="fa fa-sign-out"></i> Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
