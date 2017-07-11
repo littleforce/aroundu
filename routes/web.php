@@ -22,6 +22,7 @@ Route::post('/login', 'LoginController@login');
 Route::post('/logout', 'LoginController@logout');
 
 Route::get('/user/me/setting', 'UserController@setting');
+Route::post('/user/me/uploadAvatar', 'UserController@uploadAvatar');
 Route::post('/user/me/setting', 'UserController@settingStore');
 Route::get('/user/{id}', 'UserController@show');
 Route::get('/user/{id}/follow', 'UserController@follow');

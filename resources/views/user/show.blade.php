@@ -1,5 +1,52 @@
 @extends('layouts.app')
 
+@section('css')
+    <style>
+        .follow {
+            border-color: #42c02e;
+            padding: 0 7px 0 5px;
+            font-size: 12px;
+        }
+        .follow span {
+            margin-left: 2px;
+            display: inline;
+        }
+        .btn-success {
+            border-radius: 40px;
+        }
+        .following {
+            padding: 0 7px 0 5px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: normal;
+        }
+        .btn-default {
+            border-radius: 40px;
+            color: #8c8c8c;
+            background-color: #f0f0f0;
+            border-color: #f0f0f0;
+        }
+        .btn-default:hover {
+            color: 0;
+            background-color: #e6e6e6;
+            border-color: #e6e6e6;
+        }
+        .btn-default:hover {
+            color: #8c8c8c;
+            background-color: #d7d7d7;
+            border-color: #d1d1d1;
+        }
+        .btn:hover {
+            color: #8c8c8c;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #2f2f2f;
+            text-decoration: none;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container">
 
@@ -12,11 +59,16 @@
                 <div class="row">
                     <blockquote>
                         <p><img src="{{ $user->avatar }}" alt="" class="img-rounded" style="border-radius:500px; height: 40px"> {{ $user->name }}
-                            @if($user->id != \Auth::id())
+                            @if(\Auth::check() && $user->id != \Auth::id())
                                 @if(\Auth::user()->hasFollowed($user->id))
-                                    <a class="btn btn-primary" href="{{ url('user/'.$user->id.'/unfollow') }}"><i class="fa fa-plus"></i> 取消关注</a>
+                                    <a class="btn btn-default following" href="{{ url('user/'.$user->id.'/unfollow') }}">
+                                        <i class="fa fa-check"></i> <span class="followed-span">已关注</span>
+                                    </a>
                                 @else
-                                    <a class="btn btn-primary" href="{{ url('user/'.$user->id.'/follow') }}"><i class="fa fa-plus"></i> 关注</a>
+                                    <a class="btn btn-success follow" href="{{ url('user/'.$user->id.'/follow') }}">
+                                        <i class="fa fa-plus"></i>
+                                        <span>关注</span>
+                                    </a>
                                 @endif
                             @endif
                         </p>
