@@ -18,7 +18,6 @@ class ArticleController extends Controller
     public function index()
     {
         $array = $this->article->apiArticleList(request('offset'), request('number'));
-        $array['error'] = 0;
         return $array;
     }
 
