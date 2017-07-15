@@ -136,7 +136,7 @@ return [
     */
 
     'providers' => [
-
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -181,6 +181,7 @@ return [
 
         Laravel\Passport\PassportServiceProvider::class,
 
+        Dingo\Api\Provider\LaravelServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+
     ],
 
 ];
