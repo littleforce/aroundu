@@ -48,4 +48,24 @@ class Article extends Model
         $articles = Article::orderBy('created_at', 'desc')->offset($offset)->limit($number)->get();
         return $articles;
     }
+
+    public static function getArticlesByComments()
+    {
+        $articles = Article::all();
+        $sorted = $articles->sortByDesc(function ($articles) {
+            return $articles->comments->count();
+        });
+        //dd($sorted);
+        return $sorted;
+    }
+
+    public static function getArticlesByVotes()
+    {
+        $articles = Article::all();
+        $sorted = $articles->sortByDesc(function ($articles) {
+            return $articles->votes->count();
+        });
+        //dd($sorted);
+        return $sorted;
+    }
 }
