@@ -12,7 +12,7 @@ class UserSimpleTransformer extends TransformerAbstract
         return [
             'id' => $user->id,
             'name' => $user->name,
-
+            'avatar' => $user->avatar,
             'link' => ['uri' => '/user/'.$user->id],
         ];
     }

@@ -24,6 +24,10 @@ class UserController extends Controller
         }
         $path = md5(time()).'.'.$file->getClientOriginalExtension();
         Storage::putFileAs($dir, $file, $path);
+        $user = User::find(\Auth::id());
+        $user->avatar = 'http://localhost/storage'.$dir.'/'.$path;
+        $user->save();
+        dd($user);
         return '/storage'.$dir.'/'.$path;
     }
 

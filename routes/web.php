@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->withArticles(\App\Article::all());
 });
 
 Route::get('/register', 'RegisterController@index');
@@ -37,5 +37,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('article', 'ArticleController');
 Route::post('article/summerImageUpload', 'ArticleController@summerImageUpload');
+Route::post('article/uploadImage', 'ArticleController@articleImageUpload');
 Route::get('/article/{id}/vote', 'ArticleController@vote');
 Route::get('/article/{id}/unvote', 'ArticleController@unvote');

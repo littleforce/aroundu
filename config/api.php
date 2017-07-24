@@ -155,7 +155,7 @@ return [
     */
 
     'middleware' => [
-
+        //\App\Http\Middleware\AccessControlAllowOrigin::class,
     ],
 
     /*

@@ -8,6 +8,8 @@ use App\Vote;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class ArticleController extends Controller
 {
@@ -16,11 +18,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-//        $articles = Article::all();
+        $articles = Article::all();
 //        dd($articles);
 //        $articles = Article::getArticlesByComments();
-        $articles = Article::getArticlesByVotes();
-        return view('article.articles')->withArticles($articles);
+//        $articles = Article::getArticlesByVotes();
+        return view('welcome')->withArticles($articles);
     }
 
     /**
@@ -43,7 +45,7 @@ class ArticleController extends Controller
     /**
      * store article.
      */
-    public function store(ArticleRequest $request)
+    public function store(Request $request)
     {
         $article = new Article();
         $article->title = $request->get('title');
@@ -51,6 +53,7 @@ class ArticleController extends Controller
         $article->location = $request->get('location');
         $article->type = $request->get('type');
         $article->user_id = $request->get('user_id');
+        $article->image = $request->get('articleimage');
         $article->save();
         return redirect('article/create')->withErrors('success!');
     }
@@ -114,8 +117,15 @@ class ArticleController extends Controller
         return '/storage/'.$path;
     }
 
-    public function articleImageUpload()
+    public function articleImageUpload(Request $request)
     {
-        dd(request()->all());
+        $file = $request->file('file');
+        $dir = '/images/'.date('Y').'/'.date('m').'/'.date('d');
+        if (!Storage::exists($dir)) {
+            Storage::makeDirectory($dir);
+        }
+        $path = md5(time()).'.'.$file->getClientOriginalExtension();
+        Storage::putFileAs($dir, $file, $path);
+        return 'http://localhost/storage'.$dir.'/'.$path;
     }
 }

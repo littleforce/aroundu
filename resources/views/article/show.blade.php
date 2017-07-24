@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container app-content">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <h1 class="text-center">{{ $article->title }}</h1>
-                <h5>{{ $article->created_at }} by <a href="{{ url('user/'.$article->user->id) }}">{{ $article->user->name }}</a></h5>
+                <h5>{{ $article->created_at }} by <a href="{{ url('user/'.$article->user->id) }}">{{ $article->user->name }}</a><a style="float: right"><i class="fa fa-edit"></i></a></h5>
                 <hr>
                 {!! $article->content !!}
             </div>

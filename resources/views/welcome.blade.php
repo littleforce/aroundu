@@ -1,36 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-        <div id="myCarousel" class="carousel slide">
-        <!-- 轮播（Carousel）指标 -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>   
-        <!-- 轮播（Carousel）项目 -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <img style="background-color: red; height: 500px; width: auto; " alt="First slide">
-            </div>
-            <div class="item">
-                <img style="background-color: black; height: 500px; width: auto; " alt="Second slide">
-            </div>
-            <div class="item">
-                <img style="background-color: blue; height: 500px; width: auto; " alt="Third slide">
-            </div>
-        </div>
-        <!-- 轮播（Carousel）导航 -->
-        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-        </div>
+    <div class="app-content">
+        <el-row>
+            <el-col :span="16" :offset="4">
+                <el-row>
+                    <carousel id="carousel"></carousel>
+                </el-row>
+                <el-row :gutter='10'>
+                    <el-col :sm="16">
+                        @foreach($articles as $article)
+                            <articleitem
+                                    user_id="{{ $article->user->id }}"
+                                    user_name="{{ $article->user->name }}"
+                                    user_avatar="{{ $article->user->avatar }}"
+                                    article_id="{{ $article->id }}"
+                                    article_title="{{ $article->title }}"
+                                    article_content="<?php
+                                    $contentes = preg_replace("/<[^>]+>/", '', $article->content);
+                                    echo str_limit($contentes, 150, '...');
+                                    ?>"
+                                    article_created_at="{{ $article->created_at }}"
+                                    article_image= "{{ is_null($article->image) ? 'isok' : $article->image }}"
+                                    article_votes_count="{{ $article->votes->count() }}"
+                                    article_comments_count="{{ $article->comments->count() }}"
+                            ></articleitem>
+                        @endforeach
+                    </el-col>
+                    <el-col :sm="8">
+                        <div class="grid-content bg-purple-light"></div>
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
+    </div>
 @endsection
 
 @section('js')
-<script type="text/javascript">
-    $('#myCarousel').carousel('cycle');
-    $('#myCarousel').carousel({
-        interval: 200
-    });
-</script>
+
+@endsection
+
+@section('css')
+    <style>
+        .el-col {
+            border-radius: 4px;
+        }
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+        .bg-purple {
+            background: #d3dce6;
+        }
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+    </style>
 @endsection

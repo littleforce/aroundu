@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container app-content">
     	@foreach($articles as $article)
             <p><a href="{{ url('/article', ['id' => $article->id]) }}">{{ $article->title }}</a></p>
             <p>{{ $article->user->name }}</p>

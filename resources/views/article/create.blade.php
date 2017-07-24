@@ -7,7 +7,7 @@
     {{--$table->string('title')->comment('文章标题');--}}
     {{--$table->text('content')->comment('文章内容');--}}
     {{--$table->json('location')->comment('文章发表位置');--}}
-    <div class="container">
+    <div class="container app_content">
         <div class="row">
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -28,7 +28,8 @@
                         <input type="text" class="form-control" placeholder="文章标题" id="title" name="title">
 
                         <label for="image">Image:</label>
-                        <input type="file">
+                        <input type="file" id="image" name="file" onchange="uploadImage()">
+                        <input type="hidden" name="articleimage" id="articleimage">
 
                         <label for="content">Content:</label>
                         <div id="summernote">Hello aroundu</div>
@@ -67,6 +68,26 @@
 @endsection
 
 @section('js')
+    <script>
+        function uploadImage() {
+            data = new FormData();
+            data.append("file", $('#image')[0].files[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: data,
+                type: "POST",
+                url: "/article/uploadImage",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    $('#articleimage').attr('value', url);
+                }
+            });
+        }
+    </script>
     <!-- include summernote js-->
     <script src="/dist/summernote.js"></script>
     <script>

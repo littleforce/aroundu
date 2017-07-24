@@ -48,7 +48,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container app-content">
 
         <div class="blog-header">
         </div>
@@ -58,7 +58,7 @@
             <div class="col-sm-7">
                 <div class="row">
                     <blockquote>
-                        <p><img src="{{ $user->avatar }}" alt="" class="img-rounded" style="border-radius:500px; height: 40px"> {{ $user->name }}
+                        <p><img src="{{ $user->avatar }}" alt="" class="img-rounded" style="border-radius:1000px; height: 40px; width: 40px"> {{ $user->name }}
                             @if(\Auth::check() && $user->id != \Auth::id())
                                 @if(\Auth::user()->hasFollowed($user->id))
                                     <a class="btn btn-default following" href="{{ url('user/'.$user->id.'/unfollow') }}">
@@ -86,23 +86,21 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
                                     @foreach($user->articles as $article)
-                                        <div class="blog-post" style="margin-top: 30px">
-                                            <p class=""><a href="{{ url('/user/'.$user->id) }}">{{ $user->name }}</a> at {{ $article->created_at->diffForHumans() }}</p>
-                                            <p class=""><a href="{{ url('/article/'.$article->id) }}" >{{ $article->title }}</a></p>
-                                            {{--<p>{!! $article->content !!} </p>--}}
-                                            <p>
-                                                <?php
+                                        <articleitem
+                                                user_id="{{ $article->user->id }}"
+                                                user_name="{{ $article->user->name }}"
+                                                user_avatar="{{ $article->user->avatar }}"
+                                                article_id="{{ $article->id }}"
+                                                article_title="{{ $article->title }}"
+                                                article_content="<?php
                                                 $contentes = preg_replace("/<[^>]+>/", '', $article->content);
                                                 echo str_limit($contentes, 150, '...');
-                                                ?>
-                                            </p>
-                                        </div>
-                                        <p class=""><i class="fa fa-comments"></i> {{ $article->comments->count() }} | <i class="fa fa-heart"></i> {{ $article->votes->count() }}
-                                            @if($user->id == \Auth::id())
-                                            <span class=""><a><i class="fa fa-edit"></i> edit</a> | <a><i class="fa fa-trash"></i> delete</a></span>
-                                            @endif
-                                        </p>
-                                        <hr>
+                                                ?>"
+                                                article_created_at="{{ $article->created_at }}"
+                                                article_image= "{{ is_null($article->image) ? 'isok' : $article->image }}"
+                                                article_votes_count="{{ $article->votes->count() }}"
+                                                article_comments_count="{{ $article->comments->count() }}"
+                                        ></articleitem>
                                     @endforeach
                                 </div>
                                 <!-- /.tab-pane -->

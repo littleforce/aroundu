@@ -2,7 +2,6 @@
 namespace App\Transformers;
 
 use App\Comment;
-use League\Fractal;
 use League\Fractal\TransformerAbstract;
 
 class CommentTransformer extends TransformerAbstract
@@ -28,7 +27,13 @@ class CommentTransformer extends TransformerAbstract
             'id' => $comment->id,
             'content' => $comment->content,
             'votes_count' => $comment->votes->count(),
+            'user' => [
+                'id' => $comment->user->id,
+                'name' => $comment->user->name,
+                'link' => ['uri' => '/user/'.$comment->user->id],
+            ],
             'upper_user' => $upper_user,
+            'created_at' => (string)$comment->created_at,
         ];
     }
 

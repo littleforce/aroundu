@@ -20,6 +20,7 @@ class ArticleSimpleTransformer extends TransformerAbstract
             'title' => $article->title,
             'content' => str_limit(preg_replace("/<[^>]+>/", '', $article->content), 150, '...'),
             'created_at' => $article->created_at->diffForHumans(),
+            'image' => $article->image,
             'link' => ['uri' => '/article/'.$article->id],
             'votes_count' => $article->votes->count(),
             'comments_count' => $article->comments->count(),
