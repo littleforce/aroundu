@@ -6,7 +6,20 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <h1 class="text-center">{{ $article->title }}</h1>
-                <h5>{{ $article->created_at }} by <a href="{{ url('user/'.$article->user->id) }}">{{ $article->user->name }}</a><a style="float: right"><i class="fa fa-edit"></i></a></h5>
+                <h5>{{ $article->created_at }} by <a href="{{ url('user/'.$article->user->id) }}">{{ $article->user->name }}</a>
+                    <span style="float: right">
+                        @can('update', $article)
+                            <a href="{{ url('/article/'.$article->id.'/edit') }}"><i class="fa fa-edit"></i> edit</a>
+                        @endcan
+                        @can('delete', $article)
+                            |<form id="delete" action="{{ url('/article/'.$article->id) }}" method="POST" style="display: inline">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <a onclick="document.getElementById('delete').submit();"><i class="fa fa-trash"></i> delete</a>
+                            </form>
+                        @endcan
+                    </span>
+                </h5>
                 <hr>
                 {!! $article->content !!}
             </div>

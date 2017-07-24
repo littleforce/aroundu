@@ -58,6 +58,32 @@ class ArticleController extends Controller
         return redirect('article/create')->withErrors('success!');
     }
 
+    public function edit($id)
+    {
+        $article = Article::find($id);
+        return view('article.edit')->withArticle($article);
+    }
+
+    public function update(ArticleRequest $request, $id)
+    {
+//        dd($request->all());
+        $article = Article::find($id);
+        $article->title = $request->get('title');
+        $article->content = $request->get('content');
+        $article->location = $request->get('location');
+        $article->type = $request->get('type');
+        $article->image = $request->get('articleimage');
+        $article->save();
+        return back()->withErrors('update success!');
+    }
+
+    public function destroy($id)
+    {
+        $article = Article::find($id);
+        $article->delete();
+        return redirect('/');
+    }
+
     public function comment(CommentRequest $request)
     {
         $article = Article::find($request['article_id']);

@@ -40,3 +40,4 @@ Route::post('article/summerImageUpload', 'ArticleController@summerImageUpload');
 Route::post('article/uploadImage', 'ArticleController@articleImageUpload');
 Route::get('/article/{id}/vote', 'ArticleController@vote');
 Route::get('/article/{id}/unvote', 'ArticleController@unvote');
+Route::get('/article/{id}/edit', 'ArticleController@edit');
