@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome')->withArticles(\App\Article::all());
-});
+Route::get('/', 'ArticleController@index');
 
 Route::get('/register', 'RegisterController@index');
 Route::post('/register', 'RegisterController@register');

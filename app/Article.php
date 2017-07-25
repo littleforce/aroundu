@@ -64,7 +64,7 @@ class Article extends Model
         $articles = Article::all();
         $sorted = $articles->sortByDesc(function ($articles) {
             return $articles->votes->count();
-        });
+        })->take(5);
         //dd($sorted);
         return $sorted;
     }

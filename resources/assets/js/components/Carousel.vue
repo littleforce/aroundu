@@ -1,6 +1,6 @@
 <template>
 <div id="carousel">
-  <el-carousel :interval="4000" type="card" height="300px">
+  <el-carousel :interval="3000" type="card" height="300px">
     <el-carousel-item v-for="url in urls" :key="url">
       <img :src='url' style="height: inherit;">
     </el-carousel-item>
@@ -13,13 +13,7 @@ export default {
   name: 'carousel',
   data () {
     return {
-      urls: [
-        "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg",
-        "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg",
-        "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg",
-        "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg",
-        "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg",
-      ],
+      urls: [],
     }
   },
 }

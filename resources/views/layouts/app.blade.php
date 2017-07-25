@@ -16,20 +16,8 @@
     <link rel="stylesheet" href="//at.alicdn.com/t/font_e6nm8dhfhkf0f6r.css">
     @yield('css')
     <style>
-        a:link {
+        a:hover {
             text-decoration: none;
-            color: #6b9dbb;
-        }
-        .nav-fixed-top {
-            margin-bottom: 0px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            height: 60px;
-        }
-        .app-content {
-            margin-top: 65px;
         }
         .container {
             width: 85%;

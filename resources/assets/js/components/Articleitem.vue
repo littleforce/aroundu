@@ -6,8 +6,10 @@
                 <div class="author">
                     <div class="name">
                         <img class="avatar" :src="user_avatar" style="border-radius:1000px; height: 40px; width: 40px;">
-                        <a :href="'/user/'+user_id">{{ user_name }} </a>
-                        <span> {{ article_created_at }}</span>
+                        <div class="info">
+                            <a :href="'/user/'+user_id">{{ user_name }} </a>
+                            <span> {{ article_created_at }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="content">
@@ -30,8 +32,10 @@
                 <div class="author">
                     <div class="name">
                         <img class="avatar" :src="user_avatar" style="border-radius:1000px; height: 40px; width: 40px;">
-                        <a :href="'/user/'+user_id">{{ user_name }} </a>
-                        <span> {{ article_created_at }}</span>
+                        <div class="info">
+                            <a :href="'/user/'+user_id">{{ user_name }} </a>
+                            <span> {{ article_created_at }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="content">
@@ -65,14 +69,18 @@
 </script>
 
 <style type="text/css">
-    .author .name .avatar {
-        display: inline-block;
+    .name .info{
         vertical-align: middle;
+        display: inline-block;
+    }
+    .name a + span{
+        display: block;
     }
     .author {
         margin-bottom: 5px;
     }
     .avatar {
+        vertical-align: middle;
         border: 1px solid #dedada;
         border-radius: 50%;
     }
@@ -104,5 +112,9 @@
         margin-left: 6px;
         height: 100px;
         width: 150px;
+    }
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 </style>

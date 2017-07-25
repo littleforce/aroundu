@@ -40,10 +40,6 @@
             color: #8c8c8c;
             text-decoration: none;
         }
-        a:hover {
-            color: #2f2f2f;
-            text-decoration: none;
-        }
     </style>
 @endsection
 
@@ -58,7 +54,7 @@
             <div class="col-sm-7">
                 <div class="row">
                     <blockquote>
-                        <p><img src="{{ $user->avatar }}" alt="" class="img-rounded" style="border-radius:1000px; height: 40px; width: 40px"> {{ $user->name }}
+                        <p><img src="{{ $user->avatar }}" alt="" class="img-rounded" style="border-radius:1000px; height: 60px; width: 60px"> {{ $user->name }}
                             @if(\Auth::check() && $user->id != \Auth::id())
                                 @if(\Auth::user()->hasFollowed($user->id))
                                     <a class="btn btn-default following" href="{{ url('user/'.$user->id.'/unfollow') }}">
@@ -104,31 +100,41 @@
                                     @endforeach
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="tab_2">
+                                <div class="tab-pane" id="tab_2" style="margin-top: 15px;">
                                     @foreach($user->following as $following)
-                                        <div class="blog-post" style="margin-top: 30px">
-                                            <p class=""><a href="{{ url('user/'.$following->id) }}">{{ $following->name }}</a></p>
-                                            <p class="">关注：{{ $following->following->count() }} | 粉丝：{{ $following->followers->count() }}｜ 文章：{{ $following->articles->count() }}</p>
-                                            @if($user->id == \Auth::id())
-                                            <a class="btn btn-primary" href="{{ url('user/'.$following->id.'/unfollow') }}"><i class="fa fa-plus"></i> 取消关注</a>
-                                            @endif
+                                        <div class="author">
+                                            <div class="name">
+                                                <img class="avatar" src="{{ $following->avatar }}" style="border-radius:1000px; height: 48px; width: 48px;">
+                                                <div class="info">
+                                                    <a href="{{ url('/user/'.$following->id) }}">{{ $following->name }} </a>
+                                                    <span>关注：{{ $following->following->count() }} | 粉丝：{{ $following->followers->count() }}｜ 文章：{{ $following->articles->count() }}</span>
+                                                </div>
+                                                @if($user->id == \Auth::id())
+                                                    <a style="float: right; vertical-align: middle;" class="btn btn-primary" href="{{ url('user/'.$following->id.'/unfollow') }}"><i class="fa fa-plus"></i> 取消关注</a>
+                                                @endif
+                                            </div>
                                         </div>
                                         <hr>
                                     @endforeach
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="tab_3">
+                                <div class="tab-pane" id="tab_3" style="margin-top: 15px;">
                                     @foreach($user->followers as $follower)
-                                        <div class="blog-post" style="margin-top: 30px">
-                                            <p class=""><a href="{{ url('user/'.$follower->id) }}">{{ $follower->name }}</a></p>
-                                            <p class="">关注：{{ $follower->following->count() }} | 粉丝：{{ $follower->followers->count() }}｜ 文章：{{ $follower->articles->count() }}</p>
-                                            @if($user->id == \Auth::id())
-                                                @if(\Auth::user()->hasFollowed($follower->id))
-                                                    <a class="btn btn-primary" href="{{ url('user/'.$follower->id.'/unfollow') }}"><i class="fa fa-plus"></i> 互相关注</a>
-                                                @else
-                                                    <a class="btn btn-primary" href="{{ url('user/'.$follower->id.'/follow') }}"><i class="fa fa-plus"></i> 关注</a>
+                                        <div class="author">
+                                            <div class="name">
+                                                <img class="avatar" src="{{ $follower->avatar }}" style="border-radius:1000px; height: 48px; width: 48px;">
+                                                <div class="info">
+                                                    <a href="{{ url('/user/'.$follower->id) }}">{{ $follower->name }} </a>
+                                                    <span>关注：{{ $follower->following->count() }} | 粉丝：{{ $follower->followers->count() }}｜ 文章：{{ $follower->articles->count() }}</span>
+                                                </div>
+                                                @if($user->id == \Auth::id())
+                                                    @if(\Auth::user()->hasFollowed($follower->id))
+                                                        <a style="float: right; vertical-align: middle;" class="btn btn-primary" href="{{ url('user/'.$follower->id.'/unfollow') }}"><i class="fa fa-plus"></i> 互相关注</a>
+                                                    @else
+                                                        <a style="float: right; vertical-align: middle;" class="btn btn-primary" href="{{ url('user/'.$follower->id.'/follow') }}"><i class="fa fa-plus"></i> 关注</a>
+                                                    @endif
                                                 @endif
-                                            @endif
+                                            </div>
                                         </div>
                                         <hr>
                                     @endforeach

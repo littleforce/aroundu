@@ -18,11 +18,16 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::paginate(10);
 //        dd($articles);
 //        $articles = Article::getArticlesByComments();
-//        $articles = Article::getArticlesByVotes();
-        return view('welcome')->withArticles($articles);
+        $articlesByVotes = Article::getArticlesByVotes();
+        $links = array();
+        foreach ($articlesByVotes as $articlesByVote) {
+            if (!is_null($articlesByVote->image))
+                $links[] = $articlesByVote->image;
+        }
+        return view('welcome')->withArticles($articles)->withArticleLinks($links);
     }
 
     /**

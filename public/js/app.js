@@ -15942,6 +15942,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'articleitem',
@@ -15975,7 +15979,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: 'carousel',
   data: function data() {
     return {
-      urls: ["http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg", "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg", "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg", "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg", "http://localhost/storage/5382de3448fce0c34ff14e601713312f/QJQcap4ETgrFu3zP4xfFYpavq4tU2oCtcydUt1pW.jpeg"]
+      urls: []
     };
   }
 });
@@ -19311,7 +19315,7 @@ exports.push([module.i, "\n.action-link[data-v-63c98e40] {\n    cursor: pointer;
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n.author .name .avatar {\n    display: inline-block;\n    vertical-align: middle;\n}\n.author {\n    margin-bottom: 5px;\n}\n.avatar {\n    border: 1px solid #dedada;\n    border-radius: 50%;\n}\n.title {\n    margin: -7px 0 0px;\n    display: inherit;\n    font-size: 25px;\n    font-weight: 900;\n    line-height: 1.5;\n}\n.content {\n    font-weight: 700;\n    margin-left: 5px;\n}\n.abstract {\n    margin: 0 0 8px;\n    font-size: 13px;\n    line-height: 24px;\n}\n.iconfont {\n    font-size: 25px;\n}\n.meta {\n    opacity:0.5;\n}\n.image {\n    border-radius: 5px;\n    margin-top: 28px;\n    margin-left: 6px;\n    height: 100px;\n    width: 150px;\n}\n", ""]);
+exports.push([module.i, "\n.name .info{\n    vertical-align: middle;\n    display: inline-block;\n}\n.name a + span{\n    display: block;\n}\n.author {\n    margin-bottom: 5px;\n}\n.avatar {\n    vertical-align: middle;\n    border: 1px solid #dedada;\n    border-radius: 50%;\n}\n.title {\n    margin: -7px 0 0px;\n    display: inherit;\n    font-size: 25px;\n    font-weight: 900;\n    line-height: 1.5;\n}\n.content {\n    font-weight: 700;\n    margin-left: 5px;\n}\n.abstract {\n    margin: 0 0 8px;\n    font-size: 13px;\n    line-height: 24px;\n}\n.iconfont {\n    font-size: 25px;\n}\n.meta {\n    opacity:0.5;\n}\n.image {\n    border-radius: 5px;\n    margin-top: 28px;\n    margin-left: 6px;\n    height: 100px;\n    width: 150px;\n}\nhr {\n    margin-top: 10px;\n    margin-bottom: 10px;\n}\n", ""]);
 
 /***/ }),
 /* 89 */
@@ -81893,7 +81897,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-carousel', {
     attrs: {
-      "interval": 4000,
+      "interval": 3000,
       "type": "card",
       "height": "300px"
     }
@@ -82016,11 +82020,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.user_avatar
     }
-  }), _vm._v(" "), _c('a', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "info"
+  }, [_c('a', {
     attrs: {
       "href": '/user/' + _vm.user_id
     }
-  }, [_vm._v(_vm._s(_vm.user_name) + " ")]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.article_created_at))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.user_name) + " ")]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.article_created_at))])])])]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('p', {
     staticClass: "title"
@@ -82063,11 +82069,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.user_avatar
     }
-  }), _vm._v(" "), _c('a', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "info"
+  }, [_c('a', {
     attrs: {
       "href": '/user/' + _vm.user_id
     }
-  }, [_vm._v(_vm._s(_vm.user_name) + " ")]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.article_created_at))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.user_name) + " ")]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.article_created_at))])])])]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('p', {
     staticClass: "title"
