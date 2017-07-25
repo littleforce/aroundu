@@ -1,12 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container app-content">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-                <h1 class="text-center">{{ $article->title }}</h1>
-                <h5>{{ $article->created_at }} by <a href="{{ url('user/'.$article->user->id) }}">{{ $article->user->name }}</a></h5>
+                <h1 class="text-center" style="margin-bottom: 30px">{{ $article->title }}</h1>
+                <div class="author">
+                    <div class="name">
+                        <img class="avatar" src="{{ $article->user->avatar }}" style="border-radius:1000px; height: 48px; width: 48px;">
+                        <div class="info">
+                            <a href="'/user/'+{{ $article->user->id }}">{{ $article->user->name }} </a>
+                            <span> {{ $article->created_at }}</span>
+                        </div>
+                        <span style="float: right; vertical-align: middle;">
+                        @can('update', $article)
+                                <a href="{{ url('/article/'.$article->id.'/edit') }}"><i class="fa fa-edit"></i> edit</a>
+                            @endcan
+                            @can('delete', $article)
+                                |<form id="delete" action="{{ url('/article/'.$article->id) }}" method="POST" style="display: inline">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <a onclick="document.getElementById('delete').submit();"><i class="fa fa-trash"></i> delete</a>
+                            </form>
+                            @endcan
+                        </span>
+                    </div>
+                </div>
                 <hr>
                 {!! $article->content !!}
             </div>

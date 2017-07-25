@@ -17,7 +17,6 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->comment('发布者');
             $table->integer('type')->comment('1长文、2短文');
-            $table->integer('key')->comment('关键字')->nullable();
             $table->string('title')->comment('文章标题');
             $table->string('image')->comment('文章图片')->nullable();
             $table->text('content')->comment('文章内容');

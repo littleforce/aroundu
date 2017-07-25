@@ -13,13 +13,21 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_e6nm8dhfhkf0f6r.css">
     @yield('css')
-
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+        .container {
+            width: 85%;
+        }
+    </style>
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px;">
+        <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -97,5 +105,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
+
 </body>
 </html>

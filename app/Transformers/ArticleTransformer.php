@@ -9,6 +9,7 @@ class ArticleTransformer extends TransformerAbstract
 {
     public function transform(Article $article)
     {
+        $user_id = app('Dingo\Api\Auth\Auth')->user() ? app('Dingo\Api\Auth\Auth')->user()->id : 0;
         return [
             'id' => $article->id,
             'type' => $article->type,
@@ -22,8 +23,11 @@ class ArticleTransformer extends TransformerAbstract
             'user' => [
                 'id' => $article->user->id,
                 'name' => $article->user->name,
+                'avatar' => $article->user->avatar,
                 'link' => ['uri' => '/user/'.$article->user->id],
             ],
+            'is_voted' => $article->vote($user_id)->exists() ? 1 : 0,
+//            'is_voted' => $user_id,
             'votes_count' => $article->votes->count(),
             'comments_count' => $article->comments->count(),
         ];

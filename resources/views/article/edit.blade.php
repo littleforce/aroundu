@@ -15,18 +15,19 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <form id="articleForm" role="form" method="post" action="{{ url('/article') }}">
+                <form id="articleForm" role="form" method="post" action="{{ url('/article/'.$article->id.'/') }}">
                     {{ csrf_field() }}
+                    {{ method_field('PUT') }}
                     <div class="form-group">
                         <label for="title">Title:</label>
-                        <input type="text" class="form-control" placeholder="文章标题" id="title" name="title">
+                        <input type="text" class="form-control" placeholder="文章标题" id="title" name="title" value="{{ $article->title }}">
 
                         <label for="image">Image:</label>
                         <input type="file" id="image" name="file" onchange="uploadImage()">
-                        <input type="hidden" name="articleimage" id="articleimage">
+                        <input type="hidden" name="articleimage" id="articleimage" value="{{ $article->image }}">
 
                         <label for="content">Content:</label>
-                        <div id="summernote">Hello aroundu</div>
+                        <div id="summernote">{!! $article->content !!}</div>
                         <input type="hidden" id="content" name="content">
 
                         <label for="location">Location:</label>
@@ -36,8 +37,8 @@
                         <input type="hidden" id="location" name="location">
 
                         <label for="type">Type:</label>
-                        <input type="radio" name="type" value="1" checked> 长文
-                        <input type="radio" name="type" value="2"> 短文
+                        <input type="radio" name="type" value="1" @if($article->type == 1) checked @endif> 长文
+                        <input type="radio" name="type" value="2"@if($article->type == 2) checked @endif> 短文
 
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     </div>

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->comment('昵称');
             $table->string('email')->unique()->comment('email');
             $table->string('password')->comment('密码');
+            $table->string('avatar')->comment('头像')->nullable();
             $table->integer('level')->comment('权限等级')->default(0);
             $table->integer('effect')->comment('影响力')->default(0);
             $table->bigInteger('experience')->comment('经验')->default(0);

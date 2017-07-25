@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ArticleController@index');
 
 Route::get('/register', 'RegisterController@index');
 Route::post('/register', 'RegisterController@register');
@@ -37,5 +35,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('article', 'ArticleController');
 Route::post('article/summerImageUpload', 'ArticleController@summerImageUpload');
+Route::post('article/uploadImage', 'ArticleController@articleImageUpload');
 Route::get('/article/{id}/vote', 'ArticleController@vote');
 Route::get('/article/{id}/unvote', 'ArticleController@unvote');
+Route::get('/article/{id}/edit', 'ArticleController@edit');

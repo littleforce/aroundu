@@ -8,6 +8,8 @@ use App\Vote;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class ArticleController extends Controller
 {
@@ -16,11 +18,16 @@ class ArticleController extends Controller
      */
     public function index()
     {
-//        $articles = Article::all();
+        $articles = Article::paginate(10);
 //        dd($articles);
 //        $articles = Article::getArticlesByComments();
-        $articles = Article::getArticlesByVotes();
-        return view('article.articles')->withArticles($articles);
+        $articlesByVotes = Article::getArticlesByVotes();
+        $links = array();
+        foreach ($articlesByVotes as $articlesByVote) {
+            if (!is_null($articlesByVote->image))
+                $links[] = $articlesByVote->image;
+        }
+        return view('welcome')->withArticles($articles)->withArticleLinks($links);
     }
 
     /**
@@ -43,7 +50,7 @@ class ArticleController extends Controller
     /**
      * store article.
      */
-    public function store(ArticleRequest $request)
+    public function store(Request $request)
     {
         $article = new Article();
         $article->title = $request->get('title');
@@ -51,8 +58,35 @@ class ArticleController extends Controller
         $article->location = $request->get('location');
         $article->type = $request->get('type');
         $article->user_id = $request->get('user_id');
+        $article->image = $request->get('articleimage');
         $article->save();
         return redirect('article/create')->withErrors('success!');
+    }
+
+    public function edit($id)
+    {
+        $article = Article::find($id);
+        return view('article.edit')->withArticle($article);
+    }
+
+    public function update(ArticleRequest $request, $id)
+    {
+//        dd($request->all());
+        $article = Article::find($id);
+        $article->title = $request->get('title');
+        $article->content = $request->get('content');
+        $article->location = $request->get('location');
+        $article->type = $request->get('type');
+        $article->image = $request->get('articleimage');
+        $article->save();
+        return back()->withErrors('update success!');
+    }
+
+    public function destroy($id)
+    {
+        $article = Article::find($id);
+        $article->delete();
+        return redirect('/');
     }
 
     public function comment(CommentRequest $request)
@@ -114,8 +148,15 @@ class ArticleController extends Controller
         return '/storage/'.$path;
     }
 
-    public function articleImageUpload()
+    public function articleImageUpload(Request $request)
     {
-        dd(request()->all());
+        $file = $request->file('file');
+        $dir = '/images/'.date('Y').'/'.date('m').'/'.date('d');
+        if (!Storage::exists($dir)) {
+            Storage::makeDirectory($dir);
+        }
+        $path = md5(time()).'.'.$file->getClientOriginalExtension();
+        Storage::putFileAs($dir, $file, $path);
+        return 'http://localhost/storage'.$dir.'/'.$path;
     }
 }
