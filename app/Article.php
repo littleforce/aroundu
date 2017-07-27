@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -34,6 +35,22 @@ class Article extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function topics()
+    {
+        return $this->belongsToMany('App\Topic');
+    }
+//属于某个用户的文章
+    public function scopeAuthorBy(Builder $query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+//不属于某个专题的文章
+    public function scopeTopicNotBy(Builder $query, $topic_id)
+    {
+        return $query->doesntHave('topics', 'and', function ($q) use($topic_id) {
+            $q->where('topic_id', $topic_id);
+        });
+    }
 
 
 

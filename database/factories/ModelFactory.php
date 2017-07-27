@@ -73,3 +73,13 @@ $factory->define(App\Follow::class, function (Faker\Generator $faker) {
         'followed_id' => $followed_ids,
     ];
 });
+
+$factory->define(App\Topic::class, function (Faker\Generator $faker) {
+    $founder_ids = \App\User::pluck('id')->random();
+    return [
+        'founder_id' => $founder_ids,
+        'image' => $faker->imageUrl(),
+        'name' => $faker->name,
+        'description' => $faker->text(),
+    ];
+});

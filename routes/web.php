@@ -32,6 +32,7 @@ Route::get('/comment/{id}/unvote', 'CommentController@unvote');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/uploadImage', 'ImageController@imageUpload');
 
 Route::resource('article', 'ArticleController');
 Route::post('article/summerImageUpload', 'ArticleController@summerImageUpload');
@@ -39,3 +40,7 @@ Route::post('article/uploadImage', 'ArticleController@articleImageUpload');
 Route::get('/article/{id}/vote', 'ArticleController@vote');
 Route::get('/article/{id}/unvote', 'ArticleController@unvote');
 Route::get('/article/{id}/edit', 'ArticleController@edit');
+
+Route::Post('/topic', 'TopicController@store');
+Route::get('/topic/{topic}', 'TopicController@show');
+Route::get('/topic/{topic}/submit', 'TopicController@submit');

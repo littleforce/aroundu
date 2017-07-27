@@ -72,7 +72,7 @@
                 },
                 data: data,
                 type: "POST",
-                url: "/article/uploadImage",
+                url: "/uploadImage",
                 cache: false,
                 contentType: false,
                 processData: false,

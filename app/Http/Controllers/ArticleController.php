@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Comment;
+use App\Topic;
 use App\Vote;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
@@ -22,12 +23,13 @@ class ArticleController extends Controller
 //        dd($articles);
 //        $articles = Article::getArticlesByComments();
         $articlesByVotes = Article::getArticlesByVotes();
-        $links = array();
+        $articlelinks = array();
         foreach ($articlesByVotes as $articlesByVote) {
             if (!is_null($articlesByVote->image))
-                $links[] = $articlesByVote->image;
+                $articlelinks[] = $articlesByVote->image;
         }
-        return view('welcome')->withArticles($articles)->withArticleLinks($links);
+        $topics = Topic::getTopicsByArticlesNum(10);
+        return view('welcome', compact('articles', 'articlelinks', 'topics'));
     }
 
     /**
@@ -157,6 +159,6 @@ class ArticleController extends Controller
         }
         $path = md5(time()).'.'.$file->getClientOriginalExtension();
         Storage::putFileAs($dir, $file, $path);
-        return 'http://localhost/storage'.$dir.'/'.$path;
+        return '/storage'.$dir.'/'.$path;
     }
 }

@@ -1,6 +1,5 @@
 <template>
     <div id="articleitem">
-        <hr>
         <el-row v-if="article_image != 'isok'">
             <el-col :span='18'>
                 <div class="author">
@@ -48,6 +47,7 @@
                 </div>
             </el-col>
         </el-row>
+        <hr>
     </div>
 </template>
 
