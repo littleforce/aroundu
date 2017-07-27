@@ -82002,7 +82002,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "articleitem"
     }
-  }, [_c('hr'), _vm._v(" "), (_vm.article_image != 'isok') ? _c('el-row', [_c('el-col', {
+  }, [(_vm.article_image != 'isok') ? _c('el-row', [_c('el-col', {
     attrs: {
       "span": 18
     }
@@ -82091,7 +82091,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "iconfont icon-like"
   }), _vm._v(_vm._s(_vm.article_votes_count))]), _vm._v(" "), _c('span', [_c('i', {
     staticClass: "iconfont icon-comment"
-  }), _vm._v(_vm._s(_vm.article_comments_count))])])])], 1)], 1)
+  }), _vm._v(_vm._s(_vm.article_comments_count))])])])], 1), _vm._v(" "), _c('hr')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

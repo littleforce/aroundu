@@ -33,6 +33,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Article');
     }
 
+    public function topics()
+    {
+        return $this->hasMany('App\Topic', 'founder_id', 'id');
+    }
+
     public function apiArticles()
     {
         if (is_null(request('offset'))) {

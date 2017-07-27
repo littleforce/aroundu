@@ -7,7 +7,7 @@
                 <el-row>
                     <div id="carousel">
                         <el-carousel :interval="3000" type="card" height="300px">
-                            @foreach($article_links as $link)
+                            @foreach($articlelinks as $link)
                                 <el-carousel-item key="{{ $link }}">
                                     <img src='{{ $link }}' style="height: inherit;">
                                 </el-carousel-item>
@@ -19,17 +19,14 @@
                     <el-col :sm="16">
                         <el-row>
                             <div class="recommend-collection">
-                                {{--@foreach($collections as $collection)--}}
-                                    {{--<a href="{{ url('/collection/'.$collection->id) }}" class="collection">--}}
-                                        {{--<img src="//upload.jianshu.io/collections/images/277031/645317897236768460.png?imageMogr2/auto-orient/strip|imageView2/1/w/195/h/195" alt="195">--}}
-                                        {{--<div class="name">{{ $collection->name }}</div>--}}
-                                    {{--</a>--}}
-                                {{--@endforeach--}}
-                                <a href="/" class="collection">
-                                    <img style="height: 32px; width: 32px;" src="//upload.jianshu.io/collections/images/277031/645317897236768460.png?imageMogr2/auto-orient/strip|imageView2/1/w/195/h/195" alt="195">
-                                    <div class="collection-name">娱乐.......八卦</div>
-                                </a>
+                                @foreach($topics as $topic)
+                                    <a href="{{ url('/topic/'.$topic->id) }}" class="collection">
+                                        <img src="{{ $topic->image }}">
+                                        <div class="collection-name">{{ $topic->name }}</div>
+                                    </a>
+                                @endforeach
                             </div>
+                            <hr>
                         </el-row>
                         @foreach($articles as $article)
                             <articleitem
@@ -92,6 +89,10 @@
             border-radius: 4px;
             vertical-align: top;
             overflow: hidden;
+        }
+        .recommend-collection .collection img {
+            width: 32px;
+            height: 32px;
         }
         .recommend-collection .collection .collection-name {
             display: inline-block;
