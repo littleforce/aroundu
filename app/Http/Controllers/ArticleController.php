@@ -23,13 +23,17 @@ class ArticleController extends Controller
 //        dd($articles);
 //        $articles = Article::getArticlesByComments();
         $articlesByVotes = Article::getArticlesByVotes();
-        $articlelinks = array();
+        $articleimages = array();
+        $count = 0;
         foreach ($articlesByVotes as $articlesByVote) {
-            if (!is_null($articlesByVote->image))
-                $articlelinks[] = $articlesByVote->image;
+            if (!is_null($articlesByVote->image)) {
+                $articleimages[$count]['image'] = $articlesByVote->image;
+                $articleimages[$count]['link'] = '/article/'.$articlesByVote->id;
+                $count++;
+            }
         }
         $topics = Topic::getTopicsByArticlesNum(10);
-        return view('welcome', compact('articles', 'articlelinks', 'topics'));
+        return view('welcome', compact('articles', 'articleimages', 'topics'));
     }
 
     /**

@@ -17,18 +17,35 @@ class UserController extends Controller
 
     public function uploadAvatar(Request $request)
     {
+//        $file = $request->file('file');
+//        $dir = '/images/'.date('Y').'/'.date('m').'/'.date('d');
+//        if (!Storage::exists($dir)) {
+//            Storage::makeDirectory($dir);
+//        }
+//        $path = md5(time()).'.'.$file->getClientOriginalExtension();
+//        Storage::putFileAs($dir, $file, $path);
+//        $user = User::find(\Auth::id());
+//        $user->avatar = 'http://localhost/storage'.$dir.'/'.$path;
+//        $user->save();
+//        dd($user);
+//        return '/storage'.$dir.'/'.$path;
+
         $file = $request->file('file');
-        $dir = '/images/'.date('Y').'/'.date('m').'/'.date('d');
-        if (!Storage::exists($dir)) {
-            Storage::makeDirectory($dir);
+        $disk = \Storage::disk('qiniu');
+        $time = date('Y/m/d-H:i:s-');
+        $name = $time.uniqid();
+        $filename = $disk->put($name, $file);//上传
+        if(!$filename) {
+            return [
+                'error' => 1,
+                'msg' => '图片上传失败',
+            ];
         }
-        $path = md5(time()).'.'.$file->getClientOriginalExtension();
-        Storage::putFileAs($dir, $file, $path);
+        $img_url = $disk->getDriver()->downloadUrl($filename); //获取下载链接
         $user = User::find(\Auth::id());
-        $user->avatar = 'http://localhost/storage'.$dir.'/'.$path;
+        $user->avatar = $img_url;
         $user->save();
-        dd($user);
-        return '/storage'.$dir.'/'.$path;
+        return $img_url;
     }
 
     public function settingStore()

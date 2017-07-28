@@ -7,9 +7,11 @@
                 <el-row>
                     <div id="carousel">
                         <el-carousel :interval="3000" type="card" height="300px">
-                            @foreach($articlelinks as $link)
-                                <el-carousel-item key="{{ $link }}">
-                                    <img src='{{ $link }}' style="height: inherit;">
+                            @foreach($articleimages as $image)
+                                <el-carousel-item key="{{ $image['image'] }}">
+                                    <a href="{{ $image['link'] }}">
+                                        <img src='{{ $image['image'] }}' style="height: inherit;">
+                                    </a>
                                 </el-carousel-item>
                             @endforeach
                         </el-carousel>

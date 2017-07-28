@@ -26,6 +26,7 @@ class TopicController extends Controller
         $topic_id = $topic->id;
         foreach ($article_ids as $article_id) {
             Article::find($article_id)->topics()->attach($topic_id, ['created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
+//            Article::find($article_id)->topics()->save(Topic::find($topic_id));
         }
         return back();
     }
