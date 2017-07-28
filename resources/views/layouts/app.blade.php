@@ -49,7 +49,6 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/') }}">首页</a></li>
-                        <li><a href="{{ url('/article') }}">文章列表</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

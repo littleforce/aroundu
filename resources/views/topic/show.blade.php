@@ -92,7 +92,7 @@
                                     @endforeach
                                 </el-tab-pane>
                                 <el-tab-pane name="second">
-                                    <span slot="label"><i class="el-icon-fire"></i> 最热文章</span>
+                                    <span slot="label"><i class="fa fa-fire"></i> 最热文章</span>
                                     @foreach($articlesbyvote as $article)
                                         <articleitem
                                                 user_id="{{ $article->user->id }}"

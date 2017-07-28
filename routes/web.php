@@ -44,3 +44,5 @@ Route::get('/article/{id}/edit', 'ArticleController@edit');
 Route::Post('/topic', 'TopicController@store');
 Route::get('/topic/{topic}', 'TopicController@show');
 Route::get('/topic/{topic}/submit', 'TopicController@submit');
+
+include_once('admin.php');

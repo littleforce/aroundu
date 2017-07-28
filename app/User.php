@@ -38,6 +38,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Topic', 'founder_id', 'id');
     }
 
+    public function notices()
+    {
+        return $this->belongsToMany('App\Notice', 'user_notice', 'user_id', 'notice_id')->withPivot(['user_id', 'notice_id']);
+    }
+
+    public function addNotice($notice)
+    {
+        return $this->notices()->save($notice);
+    }
+
     public function apiArticles()
     {
         if (is_null(request('offset'))) {

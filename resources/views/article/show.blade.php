@@ -10,7 +10,7 @@
                     <div class="name">
                         <img class="avatar" src="{{ $article->user->avatar }}" style="border-radius:1000px; height: 48px; width: 48px;">
                         <div class="info">
-                            <a href="'/user/'+{{ $article->user->id }}">{{ $article->user->name }} </a>
+                            <a href="{{ url('/user/'.$article->user->id) }}">{{ $article->user->name }} </a>
                             <span> {{ $article->created_at }}</span>
                         </div>
                         <span style="float: right; vertical-align: middle;">

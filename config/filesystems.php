@@ -62,6 +62,13 @@ return [
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+        'qiniu' => [
+            'driver'    => 'qiniu',
+            'domain'    => env('QINIU_DOMAIN'),  //你的七牛域名
+            'access_key'=> env('QINIU_AK'),    //AccessKey
+            'secret_key'=> env('QINIU_SK'),   //SecretKey
+            'bucket'    => env('QINIU_BUCKET'),    //Bucket名字
+        ],
 
     ],
 

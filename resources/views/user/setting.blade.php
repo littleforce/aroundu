@@ -4,12 +4,7 @@
     <div class="container app-content">
         <div class="row">
             <div class="col-md-8 text-center">
-                <p>
-                    <img src="{{ $user->avatar }}" alt="" class="img-rounded" style="border-radius:1000px; height: 100px"> {{ $user->name }}
-                </p>
-                <form>
 
-                </form>
             </div>
             <div class="col-md-4 text-center">
                 <p style="margin-top: 50px">
